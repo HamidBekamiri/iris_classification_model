@@ -21,11 +21,11 @@ jobs:
 
     - name: Train model
       run: |
-        !python train.py
+        python train.py
 
     - name: Test model
       run: |
-        !python test.py
+        python test.py
       
     - name: Deploy model
       uses: Azure/k8s-deploy@v1
