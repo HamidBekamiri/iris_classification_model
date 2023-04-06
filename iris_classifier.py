@@ -9,6 +9,7 @@ column_names = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'c
 iris = pd.read_csv(url, header=None, names=column_names)
 
 # Use the first 100 rows for training and testing
+
 # iris = iris.head(100)
 
 # Prepare the data
