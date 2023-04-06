@@ -1,0 +1,42 @@
+name: iris-classification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Authenticate with GitHub
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install dependencies
+      run: |
+        !pip install mlflow
+        !pip install pandas
+        !pip install scikit-learn
+
+    - name: Train model
+      run: |
+        !python train.py
+
+    - name: Test model
+      run: |
+        !python test.py
+      
+    - name: Deploy model
+      uses: Azure/k8s-deploy@v1
+      with:
+        manifests: k8s/*
+        images: |
+          my-model:latest=$(docker build -q .)
+
