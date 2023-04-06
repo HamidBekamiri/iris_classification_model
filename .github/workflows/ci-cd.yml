@@ -1,36 +1,28 @@
-name: iris-classification
+name: Train and Test Iris Classifier (All rows)
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - 'iris_classifier.py'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-    - name: Authenticate with GitHub
-      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        python-version: 3.8
 
-    - name: Train model
+    - name: Install dependencies
       run: |
-        python train.py
+        python -m pip install --upgrade pip
+        pip install pandas scikit-learn
 
-    - name: Test model
-      run: |
-        python test.py
-      
-    - name: Deploy model
-      uses: Azure/k8s-deploy@v1
-      with:
-        manifests: k8s/*
-        images: |
-          my-model:latest=$(docker build -q .)
-
+    - name: Train and Test
+      run: python iris_classifier.py
