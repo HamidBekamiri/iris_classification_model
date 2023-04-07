@@ -11,7 +11,7 @@ artifact_name = 'my-model'
 
 # Set up the API endpoint and headers
 api_url = f'https://api.github.com/repos/HamidBekamiri/iris_classification_model/actions/artifacts'
-headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization': f'token {os.environ["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"]}'}
+headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization': 'token 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'}
 
 # Get the list of artifacts for the repository
 response = requests.get(api_url, headers=headers)
