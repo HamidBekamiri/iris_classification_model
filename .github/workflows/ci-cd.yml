@@ -24,3 +24,9 @@ jobs:
 
     - name: Train and Test
       run: python iris_classifier.py
+    
+    - name: Save Model
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-model
+        path: model.joblib
